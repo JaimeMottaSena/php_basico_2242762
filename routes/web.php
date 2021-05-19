@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MetabuscadorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,22 +40,36 @@ Route::get("paises",function(){
 
     ]
 ];
+/*
 //el tipo de datos hay 2 lenguajes , fuertemente equipado:se define el tipo de dato y no cambia
 // php, js son lenguajes devilmente equipados no es necesario definir el dato
 //en php no existe el problema de definir las variables como entero etc
 //concaenar pgar 2 cadenas de caracteres en php es con .
 // solo para recorrer arreglos en php foreach
-    foreach($paises as  $nombre => $pais){
-        echo "<pre>";
-        echo"<h1>$nombre</<h1>". "<br/>";
-        print_r($pais["capital"]. "<br/>");
-        print_r($pais["poblacion"]. "<br/>");
-        print_r($pais["moneda"]. "<br/>");
-        echo"</pre>";
-        echo "<hr />";
+    $suma= 0;
+    foreach($paises as  $nombre => $pais):
+        $suma += $pais ["poblacion"];
+    endforeach;
+    echo "la suma de los paises es $suma";
 
-    }
+
+
+    echo "<hr />";
+
+
+/*/
+//llamar una vista
+//con datos de paises
+//alias:nombre con el cual se reconocen los datos en la vista
+return view ('paises')->with ( "naciones", $paises);
+
 
 
 
 });
+Route::get('formulario_buscador',"MetabuscadorController@formulario_buscador" );
+
+Route::post('buscar',"MetabuscadorController@buscar");
+
+
+
